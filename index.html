@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/final.css">
+    <script src="http://www.worldwidetelescope.org/scripts/wwtsdk.aspx"></script>
+    <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+</head>
+<body onload="initialize()">
+<!--
+Build a search form to do a cone search of Chandra press release imagery
+
+1. acquire cxc_sources.csv and convert to JSON format
+2. build form for searching...incorporate stuart lowe's sky based search?
+3. how to format the output?
+ - use AJAX calls to autocomplete? populate a grid of thumbnail images that grow when you mouseover?
+ - technologies needed:
+       jquery? ajax?
+       form validation / pop up boxes
+4. How to implement cone search?
+    also, name resolver? SIMBAD/NED
+5.
+
+*****
+
+Change of plans? Load up a random press release and show location on the sky in WWT?
+
+-->
+<div class="container">
+    <h1>Joseph DePasquale - CSCI E-3 Final Project: <br />Explore the X-ray Universe</h1>
+    <p>
+        My final project uses javascript to read from a JSON-formatted database of Chandra press releases
+        to serve up a random press release. The code also uses the WorldWide Telescope API to show <thead>
+        location of the object on the sky.
+    </p>
+    <h4><br />
+
+        <div id="WorldWideTelescopeControlHost">
+            <div id="WWTCanvas" style="width:640px; height:480px; border-style: none; border-width: 0px;"></div>
+        </div>
+
+        <div id="releases"></div>
+
+        <!-- <div class="info">
+            <h2>Press Release Information Goes Here</h2>
+        </div> -->
+</div>
+<script src="js/wwt.js"></script>
+<script src="js/final.js"></script>
+
+</body>
+</html>
