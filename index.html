@@ -1,48 +1,74 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
     <link rel="stylesheet" href="css/final.css">
     <script src="http://www.worldwidetelescope.org/scripts/wwtsdk.aspx"></script>
     <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body onload="initialize()">
-<!--
-Build a search form to do a cone search of Chandra press release imagery
 
-1. acquire cxc_sources.csv and convert to JSON format
-2. build form for searching...incorporate stuart lowe's sky based search?
-3. how to format the output?
- - use AJAX calls to autocomplete? populate a grid of thumbnail images that grow when you mouseover?
- - technologies needed:
-       jquery? ajax?
-       form validation / pop up boxes
-4. How to implement cone search?
-    also, name resolver? SIMBAD/NED
-5.
-
-*****
-
-Change of plans? Load up a random press release and show location on the sky in WWT?
-
--->
 <div class="container">
-    <h1>Joseph DePasquale - CSCI E-3 Final Project: <br />Explore the X-ray Universe</h1>
+    <h1>Joseph DePasquale - CSCI E-3 Final Project</h1>
     <p>
         My final project uses javascript to read from a JSON-formatted database of Chandra press releases
         to serve up a random press release. The code also uses the WorldWide Telescope API to show <thead>
         location of the object on the sky.
     </p>
     <h4><br />
-
-        <div id="WorldWideTelescopeControlHost">
-            <div id="WWTCanvas" style="width:640px; height:480px; border-style: none; border-width: 0px;"></div>
+        <h1>Explore the X-ray Universe - Chandra Press Releases in Context</h1>
+        <p>
+            Click "Surprise Me!" to load a random press release below. Content of the release is displayed on the right,
+            while a contextual view on the optical sky is provided in the portal on the left via <a href="http://www.worldwidetelescope.org" target="_blank">WorldWide Telescope</a>.
+            The thumbnail image is a link that takes you to the press release web page.
+        </p>
+    <div class="pure-g">
+        <div class="pure-u-2-3">
+            <div id="WorldWideTelescopeControlHost">
+                <div id="WWTCanvas" style="width: 640px; height:480px; border-style: none; border-width: 0px;"></div>
+            </div>
         </div>
-
-        <div id="releases"></div>
-
-        <!-- <div class="info">
-            <h2>Press Release Information Goes Here</h2>
-        </div> -->
+        <div class="pure-u-1-3">
+            <div id="releases"></div>
+        </div>
+        <div class="pure-u-1-1">
+            <div id="search">
+                <h2>Search Options</h2>
+                <button class="pure-button pure-button-primary" id="lucky">Surprise Me!</button> | <a id="toggle" href="#search">more options</a>
+                <br /><br />
+                <div id="advanced" style="display: none;">
+                    <hr />
+                    <div class="pure-u-1-3">
+                        <div id="byName">
+                            <h3>Name Search</h3>
+                            <input class="search" type="text" id="name" placeholder="e.g. Cassiopeia A"/>
+                        </div>
+                        <div id="byFilter">
+                            <h3>Filtered Search</h3>
+                            Distance: <br /><input type="checkbox" id="EU" name="EU" /> Early Universe | <input type="checkbox" id="LU" name="LU" /> Local Universe | <input type="checkbox" id="MW" name="MW" /> Milky Way<br />
+                            Categories: <br /><input type="checkbox" id="Star" name="Star" />Stars | <input type="checkbox" id="Nebula" name="Nebula" /> Nebulas | <input type="checkbox" id="Galaxy" name="Galaxy" /> Galaxies & Galaxy Clusters <br />
+                        </div>
+                    </div>
+                    <div class="pure-u-1-2">
+                        <h3 id="list">Search Results [select one to load above] <span id=size></span></h3>
+                        <div id="objList">
+                            <ul class="list">
+                                <li class="go" data-id="0">
+                                    <img class="image" src="" style="width: 50px" />
+                                    <span id="MW" class="dist"></span>
+                                    <span id="Star" class="type"></span>
+                                    <span class="source"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="js/wwt.js"></script>
 <script src="js/final.js"></script>
