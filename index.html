@@ -6,6 +6,8 @@
     <script src="http://www.worldwidetelescope.org/scripts/wwtsdk.aspx"></script>
     <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js"></script>
+    <script src="js/wwt.js"></script>
+    <script src="js/final.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
@@ -48,12 +50,17 @@
                         </div>
                         <div id="byFilter">
                             <h3>Filtered Search</h3>
-                            Distance: <br /><input type="checkbox" id="EU" name="EU" /> Early Universe | <input type="checkbox" id="LU" name="LU" /> Local Universe | <input type="checkbox" id="MW" name="MW" /> Milky Way<br />
-                            Categories: <br /><input type="checkbox" id="Star" name="Star" />Stars | <input type="checkbox" id="Nebula" name="Nebula" /> Nebulas | <input type="checkbox" id="Galaxy" name="Galaxy" /> Galaxies & Galaxy Clusters <br />
+                            <input type="checkbox" id="Clear" name="Clear" checked="checked" /> Clear Filters
+                            <form action="">
+                                Categories: <br /><input type="radio" id="Star" name="Type" /> Stars <input type="radio" id="Nebula" name="Type" /> Nebulas <input type="radio" id="Galaxy" name="Type" /> Galaxies & Galaxy Clusters <br />
+                            </form>
+                            <form action="">
+                                Distance: <br /><input type="radio" id="EU" name="Dist" /> Early Universe <input type="radio" id="LU" name="Dist" /> Local Universe <input type="radio" id="MW" name="Dist" /> Milky Way<br />
+                            </form>
                         </div>
                     </div>
-                    <div class="pure-u-1-2">
-                        <h3 id="list">Search Results [select one to load above] <span id=size></span></h3>
+                    <div class="pure-u-1-2" style="margin-left: 30px;">
+                        <h3 id="list">Search Results [select one to load above] </h3>Current count: <span id=size></span></h3>
                         <div id="objList">
                             <ul class="list">
                                 <li class="go" data-id="0">
@@ -70,8 +77,6 @@
         </div>
     </div>
 </div>
-<script src="js/wwt.js"></script>
-<script src="js/final.js"></script>
 
 </body>
 </html>
