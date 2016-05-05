@@ -1,4 +1,4 @@
-# GradAssign3
+# Final Project
 
 CSCI E-3 Introduction to Web Programming Using Javascript
 
