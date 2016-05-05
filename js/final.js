@@ -1,8 +1,20 @@
 "use strict";
+/** I've found that splitting up the two main functions of the site into two sections,
+ ** one that loads with document.ready, and the other with window.load seems to make
+ ** everything play nice. Otherwise, I found that I was getting errors where the page
+ ** would be stuck populating the list table while other elements were trying to populate
+ ** with images.
+ **
+ ** This first document.ready section handles loading the main elements and the first
+ ** random press release that appears after page load.
+ **
+ ** The window.load section, only populates the list table after EVERYTHING else (including)
+ ** images is already in place. This works because the table is not visible anyway until the user
+ ** clicks on "more options" so there is a little extra time to load it.
+ **/
 $(document).ready(function(){
-    $('.search').on('keyup', function(){
-        $('#size').html($('.list li').size());
-    });
+    // load the random or user-selected press release both into
+    // the WWT portal window and into the content window.
     function display(entry){
         $("#releases").empty();
         wwt.gotoRaDecZoom(parseFloat(entry.Xeq*-1), parseFloat(entry.Yeq), 0.2, false);
@@ -12,6 +24,7 @@ $(document).ready(function(){
         $('#releases').append('<h4>Object: '+entry.source+'</h4>');
         $('#releases').append('<h5>RA: '+entry.Xeq*-1+' | Dec: '+entry.Yeq+'</h5>');
     };
+    // pick a press release at random and call the display function to show it
     function random(){
         $.getJSON('cxc_sources.json', function(data) {
             var rNum = parseInt(Math.random()*data.length);
@@ -30,9 +43,17 @@ $(document).ready(function(){
     //slide animation for toggling more search options
     $("#toggle").click(function(){
         $("#advanced").slideToggle();
+        //write the current size of the list to the page
+        $('#size').html($('.list li').size());
+
+        // this is a cheat to deal with the annoying "feature" of list.js that
+        // requires a sample element for the list in order to populate with
+        // json data. That first element doesn't exist and is just a blank
+        // entry in the table so hide it when more search options is loaded
+        // NOTE this creates a bug where multiple clicks of the "more options"
+        // link removes the next real entry from the table - not good!
         $('li').first().empty();
         $('li').first().remove();
-        $('#size').html($('.list li').size());
     });
     //load the object clicked on in the search results table
     $(document).on('click', '.go', function(e){
@@ -42,9 +63,14 @@ $(document).ready(function(){
             display(entry);
         });
     });
+    //event handler for the name based search bar
+    $('.search').on('keyup', function(){
+        $('#size').html($('.list li').size());
+    });
 });
 //wait for everything to load before populating the search list
 $(window).load(function(){
+    //list.js stuff for loading the json data into the page
     var activeFilters = [];
     var options = {
         valueNames: [
