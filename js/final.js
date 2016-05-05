@@ -50,10 +50,9 @@ $(document).ready(function(){
         // requires a sample element for the list in order to populate with
         // json data. That first element doesn't exist and is just a blank
         // entry in the table so hide it when more search options is loaded
-        // NOTE this creates a bug where multiple clicks of the "more options"
-        // link removes the next real entry from the table - not good!
-        $('li').first().empty();
-        $('li').first().remove();
+        // NOTE - this call appears elsewhere as the element pops back into the
+        // list depending on search options
+        $('li[data-id="-1"]').remove();
     });
     //load the object clicked on in the search results table
     $(document).on('click', '.go', function(e){
@@ -66,11 +65,13 @@ $(document).ready(function(){
     //event handler for the name based search bar
     $('.search').on('keyup', function(){
         $('#size').html($('.list li').size());
+        $('li[data-id="-1"]').remove();
     });
 });
 //wait for everything to load before populating the search list
 $(window).load(function(){
     //list.js stuff for loading the json data into the page
+    //declare array for holding the filter values
     var activeFilters = [];
     var options = {
         valueNames: [
@@ -112,5 +113,10 @@ $(window).load(function(){
             return true;
         });
         $('#size').html($('.list li').size());
+        $('li[data-id="-1"]').remove();
+    });
+    //again delete that first element needed by list.js
+    $('.sort').click(function(){
+        $('li[data-id="-1"]').remove();
     });
 });
