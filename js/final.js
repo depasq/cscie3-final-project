@@ -1,7 +1,6 @@
 "use strict";
 $(document).ready(function(){
     $('.search').on('keyup', function(){
-        console.log('hi '+ $('.list li').size());
         $('#size').html($('.list li').size());
     });
     function display(entry){
@@ -50,8 +49,8 @@ $(window).load(function(){
     var options = {
         valueNames: [
         'source',
+        'headline',
         'date',
-        { attr: 'href', name: 'link' },
         { attr: 'src', name: 'image'},
         { attr: 'id', name: 'dist'},
         { attr: 'id', name: 'type'},
@@ -62,8 +61,8 @@ $(window).load(function(){
         $.each(data, function(key, val){
             objList.add({
                 source: val.source,
+                headline: val.headline,
                 date: val.date,
-                link: val.link,
                 image: val.img,
                 dist: val.Dist,
                 type: val.Type,
@@ -72,59 +71,20 @@ $(window).load(function(){
         });
     });
     //handle all list filtering
-    $('#Clear').click(function(){
-        objList.filter();
-        $('li').first().empty();
-        $('li').first().remove();
-        $('input[type=radio]').prop('checked', false);
-        flagT=0;
-        flagD=0;
-        $('#size').html($('.list li').size());
-    });
-    $('#byFilter :radio').click(function(){
-        $('#Clear').prop('checked', false);
+    $('#byFilter :checkbox').change(function(){
+        var isChecked = this.checked;
         var tag = $(this).attr('id');
-        var name = $(this).attr('name');
-
-        if (name == "Type"){
-            if (flagD) {
-                objList.matchingItems.filter(function(item){
-                    if (item.values().type == tag) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                });
-            } else {
-                objList.filter(function(item){
-                    if (item.values().type == tag) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                });
-                flagT=1;
-            }
-        } else if (name == "Dist"){
-            if (flagT) {
-                objList.matchingItems.filter(function(item){
-                    if (item.values().dist == tag) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                });
-            } else {
-                objList.filter(function(item){
-                    if (item.values().dist == tag) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                });
-                flagD=1;
-            }
+        if (isChecked){
+            activeFilters.push(tag);
+        } else {
+            activeFilters.splice(activeFilters.indexOf(tag), 1);
         }
+        objList.filter(function(item){
+            if (activeFilters.length > 0) {
+                return(activeFilters.indexOf(item.values().type)>-1);
+            }
+            return true;
+        });
         $('#size').html($('.list li').size());
     });
 });

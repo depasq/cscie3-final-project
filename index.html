@@ -16,16 +16,19 @@
 <div class="container">
     <h1>Joseph DePasquale - CSCI E-3 Final Project</h1>
     <p>
-        My final project uses javascript to read from a JSON-formatted database of Chandra press releases
-        to serve up a random press release. The code also uses the WorldWide Telescope API to show <thead>
-        location of the object on the sky.
+        My final project uses javascript to read from a JSON-formatted database of the Chandra X-ray Observatory's press releases
+        to serve up a random press release upon page load. The code also uses the WorldWide Telescope API to show <thead>
+        location of the object on the sky. Further options include a button that loads a new random release, and a link that expands
+        the search options to include a name based search, filtering search and sorting options. I used <a href="http://www.listjs.com/">list.js</a>
+        to provide the heavy lifting for creating the searchable/sortable list from the JSON data. The list window is scrollable and any
+        press release in the list can be clicked to load it into the main window and see it's contextual location on the sky in the WWT portal.
     </p>
     <h4><br />
         <h1>Explore the X-ray Universe - Chandra Press Releases in Context</h1>
         <p>
             Click "Surprise Me!" to load a random press release below. Content of the release is displayed on the right,
             while a contextual view on the optical sky is provided in the portal on the left via <a href="http://www.worldwidetelescope.org" target="_blank">WorldWide Telescope</a>.
-            The thumbnail image is a link that takes you to the press release web page.
+            The thumbnail image is a link that takes you to the original Chandra X-ray Observatory press release web page.
         </p>
     <div class="pure-g">
         <div class="pure-u-2-3">
@@ -50,26 +53,33 @@
                         </div>
                         <div id="byFilter">
                             <h3>Filtered Search</h3>
-                            <input type="checkbox" id="Clear" name="Clear" checked="checked" /> Clear Filters
-                            <form action="">
-                                Categories: <br /><input type="radio" id="Star" name="Type" /> Stars <input type="radio" id="Nebula" name="Type" /> Nebulas <input type="radio" id="Galaxy" name="Type" /> Galaxies & Galaxy Clusters <br />
-                            </form>
-                            <form action="">
-                                Distance: <br /><input type="radio" id="EU" name="Dist" /> Early Universe <input type="radio" id="LU" name="Dist" /> Local Universe <input type="radio" id="MW" name="Dist" /> Milky Way<br />
-                            </form>
+                                Categories: <br /><input type="checkbox" id="Star" name="Type" /> Stars <input type="checkbox" id="Nebula" name="Type" /> Nebulas <input type="checkbox" id="Galaxy" name="Type" /> Galaxies & Galaxy Clusters <br />
+                                <!-- Distance: <br /><input type="checkbox" id="EU" name="Dist" /> Early Universe <input type="checkbox" id="LU" name="Dist" /> Local Universe <input type="checkbox" id="MW" name="Dist" /> Milky Way<br /> -->
                         </div>
                     </div>
                     <div class="pure-u-1-2" style="margin-left: 30px;">
-                        <h3 id="list">Search Results [select one to load above] </h3>Current count: <span id=size></span></h3>
-                        <div id="objList">
-                            <ul class="list">
-                                <li class="go" data-id="0">
-                                    <img class="image" src="" style="width: 50px" />
-                                    <span id="MW" class="dist"></span>
-                                    <span id="Star" class="type"></span>
-                                    <span class="source"></span>
-                                </li>
-                            </ul>
+                        <h3 id="list">Search Results [select one to load above] </h3>
+                        <div id="list">
+                            Current count: <span id=size> </span>&nbsp;
+                            <button class="pure-button pure-button-primary sort" data-sort="date">
+                                Sort by date
+                            </button>
+                            <div id="objList">
+                                <ul class="list">
+                                    <li class="go" data-id="0">
+                                        <div id="img">
+                                            <img class="image" src="" style="width: 70px; height: 70px;" />
+                                        </div>
+                                        <div id="info">
+                                            <span id="MW" class="dist"></span>
+                                            <span id="Star" class="type"></span>
+                                            <h3 class="source"></h3>
+                                            <p class="headline"></p>
+                                            Date: <span class="date"></span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

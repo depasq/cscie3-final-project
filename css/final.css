@@ -40,11 +40,15 @@ body {
     margin-bottom: 30px;
 }
 #objList {
-    height: 180px;
-    width: 100%;
+    height: 300px;
+    width: 600px;
     overflow: scroll;
     border: 1px solid black;
     /*margin-left: 30px;*/
+}
+.date {
+    font-style: italic;
+    font-size: 0.9em;
 }
 .list {
   font-family:sans-serif;
@@ -56,6 +60,26 @@ body {
   background-color: #eee;
   padding:10px;
   box-shadow: inset 0 1px 0 #fff;
+}
+li:hover {
+  background: #aaa;
+  cursor: pointer;
+}
+.image {
+    float: left;
+    margin-left: 5px;
+    margin-right: 10px;
+    /*margin-bottom: 20px;*/
+}
+.headline {
+    margin-bottom: -2px;
+}
+.source {
+    margin: -2px;
+    margin-bottom: -5px;
+}
+#info{
+    margin-left: 75px;
 }
 .info {
     width: 90%;
