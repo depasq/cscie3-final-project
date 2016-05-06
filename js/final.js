@@ -53,7 +53,7 @@ $(document).ready(function(){
         // NOTE - this call appears elsewhere as the element pops back into the
         // list depending on search options
         // Also, the null element throws an error in the console because it's
-        // looking for an image that isn't there. 
+        // looking for an image that isn't there.
         $('li[data-id="-1"]').remove();
     });
     //load the object clicked on in the search results table
@@ -74,7 +74,7 @@ $(document).ready(function(){
 $(window).load(function(){
     //list.js stuff for loading the json data into the page
     //declare array for holding the filter values
-    var activeFilters = [];
+    var filters = [];
     var options = {
         valueNames: [
         'source',
@@ -103,17 +103,23 @@ $(window).load(function(){
     $('#byFilter :checkbox').change(function(){
         var isChecked = this.checked;
         var tag = $(this).attr('id');
+
+        // if checkbox checked, add this item to the filter list
+        // if not, remove it
         if (isChecked){
-            activeFilters.push(tag);
+            filters.push(tag);
         } else {
-            activeFilters.splice(activeFilters.indexOf(tag), 1);
+            filters.splice(filters.indexOf(tag), 1);
         }
+        // plan to implement multidimensional filtering on both category
+        // and distance, but just category for now
         objList.filter(function(item){
-            if (activeFilters.length > 0) {
-                return(activeFilters.indexOf(item.values().type)>-1);
+            if (filters.length > 0) {
+                return(filters.indexOf(item.values().type)>-1);
             }
             return true;
         });
+        //update count and delete that first element needed by list.js
         $('#size').html($('.list li').size());
         $('li[data-id="-1"]').remove();
     });
