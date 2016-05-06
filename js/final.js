@@ -52,6 +52,8 @@ $(document).ready(function(){
         // entry in the table so hide it when more search options is loaded
         // NOTE - this call appears elsewhere as the element pops back into the
         // list depending on search options
+        // Also, the null element throws an error in the console because it's
+        // looking for an image that isn't there. 
         $('li[data-id="-1"]').remove();
     });
     //load the object clicked on in the search results table
