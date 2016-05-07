@@ -11,6 +11,10 @@
  ** The window.load section, only populates the list table after EVERYTHING else (including)
  ** images is already in place. This works because the table is not visible anyway until the user
  ** clicks on "more options" so there is a little extra time to load it.
+ **
+ ** TO DO: - Filtering on two criteria (add distance filtering)
+ **        - Fix the count update (sometimes lags behind actual results by one keypress)
+ **        - Improved UI and layout (responsive design)
  **/
 $(document).ready(function(){
     // load the random or user-selected press release both into
@@ -21,8 +25,8 @@ $(document).ready(function(){
         $('#releases').append('<h3>'+entry.title+'</h3>');
         $('#releases').append('<p>'+entry.headline+'</p>');
         $('#releases').append('<a href='+entry.link+' target="_blank"><img id=image src='+entry.img+' /></a>');
-        $('#releases').append('<h4>Object: '+entry.source+'</h4>');
-        $('#releases').append('<h5>RA: '+entry.Xeq*-1+' | Dec: '+entry.Yeq+'</h5>');
+        $('#releases').append('<h5>Object: '+entry.source+'</h5>');
+        $('#releases').append('<h5>RA: '+(entry.Xeq*-1).toFixed(2)+' | Dec: '+(entry.Yeq).toFixed(2)+'</h5>');
     };
     // pick a press release at random and call the display function to show it
     function random(){
@@ -103,6 +107,7 @@ $(window).load(function(){
     $('#byFilter :checkbox').change(function(){
         var isChecked = this.checked;
         var tag = $(this).attr('id');
+        var name = $(this).attr('name');
 
         // if checkbox checked, add this item to the filter list
         // if not, remove it
