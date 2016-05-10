@@ -1,5 +1,8 @@
 "use strict";
-/** I've found that splitting up the two main functions of the site into two sections,
+/** Joseph DePasquale | CSCI E-3 Final Project | Spring 2016
+ ** final.js
+ **
+ ** I've found that splitting up the two main functions of the site into two sections,
  ** one that loads with document.ready, and the other with window.load seems to make
  ** everything play nice. Otherwise, I found that I was getting errors where the page
  ** would be stuck populating the list table while other elements were trying to populate
@@ -18,27 +21,31 @@
  **/
 
 $(document).ready(function(){
-    $.fn.spin.presets.flower = {
+    $.fn.spin.presets.spinner = {
         lines: 9,
         length: 50,
         width: 10,
         radius: 50
     }
-    $('body').spin('flower', '#fff');
+
+    $('body').spin('spinner', '#fff');
 
     // load the random or user-selected press release both into
     // the WWT portal window and into the content window.
     function display(entry){
+        //first clear out any previous data
         $("#releases").empty();
+        //set WWT to the current location
         wwt.gotoRaDecZoom(parseFloat(entry.Xeq*-1), parseFloat(entry.Yeq), 0.2, false);
+        //update the press content box
         $('#releases').append('<h3>'+entry.title+'</h3>');
         $('#releases').append('<p>'+entry.headline+'</p>');
         $('#releases').append('<a href='+entry.link+' target="_blank"><img id=image src='+entry.img+' /></a>');
         $('#releases').append('<br/><br/>'+entry.source+'<br/>');
         $('#releases').append('Release Date: '+entry.date+'<br/>');
         $('#releases').append('RA: '+(entry.Xeq*-1).toFixed(2)+' | Dec: '+(entry.Yeq).toFixed(2));
+        //turn off the spinner animation
         $('body').spin(false);
-
     };
     // pick a press release at random and call the display function to show it
     function random(){
