@@ -16,7 +16,16 @@
  **        - Fix the count update (sometimes lags behind actual results by one keypress)
  **        - Improved UI and layout (responsive design)
  **/
+
 $(document).ready(function(){
+    $.fn.spin.presets.flower = {
+        lines: 9,
+        length: 50,
+        width: 10,
+        radius: 50
+    }
+    $('body').spin('flower', '#fff');
+
     // load the random or user-selected press release both into
     // the WWT portal window and into the content window.
     function display(entry){
@@ -25,8 +34,11 @@ $(document).ready(function(){
         $('#releases').append('<h3>'+entry.title+'</h3>');
         $('#releases').append('<p>'+entry.headline+'</p>');
         $('#releases').append('<a href='+entry.link+' target="_blank"><img id=image src='+entry.img+' /></a>');
-        $('#releases').append('<h5>Object: '+entry.source+'</h5>');
-        $('#releases').append('<h5>RA: '+(entry.Xeq*-1).toFixed(2)+' | Dec: '+(entry.Yeq).toFixed(2)+'</h5>');
+        $('#releases').append('<br/><br/>'+entry.source+'<br/>');
+        $('#releases').append('Release Date: '+entry.date+'<br/>');
+        $('#releases').append('RA: '+(entry.Xeq*-1).toFixed(2)+' | Dec: '+(entry.Yeq).toFixed(2));
+        $('body').spin(false);
+
     };
     // pick a press release at random and call the display function to show it
     function random(){
